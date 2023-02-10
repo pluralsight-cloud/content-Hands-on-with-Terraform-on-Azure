@@ -26,9 +26,6 @@ choco install git --version 2.39.1 -y --no-progress
 choco install azure-cli --version 2.45.0 -y --no-progress
 choco install vscode --version 1.75.0 -y --no-progress
 
-# Update Environmental Variables
-Update-SessionEnvironment
-
 # Install required Visual Studio Code Extensions
-code --install-extension hashicorp.terraform
-code --install-extension vscode-icons-team.vscode-icons
+cmd /c code --install-extension hashicorp.terraform
+cmd /c code --install-extension vscode-icons-team.vscode-icons
