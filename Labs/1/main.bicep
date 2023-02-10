@@ -31,7 +31,7 @@ resource nsgdefault 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
       {
         name: 'AllowAnyRDPInbound'
         properties: {
-          description: 'Allow inbound RDP traffic from all VMs to Internet'
+          description: 'Allow inbound RDP traffic to all VMs from Internet'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
@@ -127,9 +127,9 @@ resource VM1CSE 'Microsoft.Compute/virtualMachines/extensions@2020-12-01' = {
     autoUpgradeMinorVersion: true
     protectedSettings: {
       fileUris: [
-        '#TODO'
+        'https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/Set-Workstation.ps1'
       ]
-      commandToExecute: 'powershell.exe -ExecutionPolicy Bypass -File VM1.ps1'
+      commandToExecute: 'powershell.exe -ExecutionPolicy Bypass -File Set-Workstation.ps1'
     }
   }
 }
