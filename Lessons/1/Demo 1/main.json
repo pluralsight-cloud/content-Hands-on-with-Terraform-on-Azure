@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.9.1.41621",
-      "templateHash": "12043424972956675356"
+      "templateHash": "8828535461057602739"
     }
   },
   "parameters": {
@@ -158,9 +158,9 @@
         "autoUpgradeMinorVersion": true,
         "protectedSettings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/Helpers/Set-Workstation.ps1"
+            "https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Lessons/Helpers/Set-Workstation1.ps1"
           ],
-          "commandToExecute": "powershell.exe -ExecutionPolicy Bypass -File Set-Workstation.ps1"
+          "commandToExecute": "powershell.exe -ExecutionPolicy Bypass -File Set-Workstation1.ps1"
         }
       },
       "dependsOn": [
