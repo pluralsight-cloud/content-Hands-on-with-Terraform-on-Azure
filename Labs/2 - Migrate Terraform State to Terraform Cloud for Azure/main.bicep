@@ -127,7 +127,7 @@ resource VM1CSE 'Microsoft.Compute/virtualMachines/extensions@2020-12-01' = {
     autoUpgradeMinorVersion: true
     protectedSettings: {
       fileUris: [
-        'https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/Helpers/Set-Workstation.ps1'
+        'https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/2%20-%20Migrate%20Terraform%20State%20to%20Terraform%20Cloud%20for%20Azure/Set-Workstation.ps1'
       ]
       commandToExecute: 'powershell.exe -ExecutionPolicy Bypass -File Set-Workstation.ps1 -ResourceGroupName "${resourceGroup().name}" -ResourceGroupLocation "${resourceGroup().location}"'
     }
