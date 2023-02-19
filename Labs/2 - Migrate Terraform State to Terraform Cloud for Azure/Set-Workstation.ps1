@@ -39,7 +39,7 @@ choco install vscode --version 1.75.0 -y --no-progress
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/Helpers/Install-Extensions.ps1' -OutFile "C:\Temp\Install-Extensions.ps1"
 
-$Action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-WindowStyle Hidden-ExecutionPolicy Bypass -File C:\Temp\Install-Extensions.ps1"
+$Action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-WindowStyle Hidden -ExecutionPolicy Bypass -File C:\Temp\Install-Extensions.ps1"
 $Trigger = New-ScheduledTaskTrigger -AtLogon
 Register-ScheduledTask -TaskName "Install-Extensions" -Action $Action -Trigger $Trigger -Description "Install Extensions for VS Code"  -User "cloud_user"
 
