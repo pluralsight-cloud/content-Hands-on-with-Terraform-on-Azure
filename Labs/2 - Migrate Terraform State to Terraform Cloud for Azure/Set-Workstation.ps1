@@ -35,9 +35,6 @@ choco install git --version 2.39.1 -y --no-progress
 choco install azure-cli --version 2.45.0 -y --no-progress
 choco install vscode --version 1.75.0 -y --no-progress
 
-# Update Environmental Variables
-Update-SessionEnvironment
-
 # Install required Visual Studio Code Extensions by downloading a script and running a scheduled task at logon
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/Helpers/Install-Extensions.ps1' -OutFile "C:\Temp\Install-Extensions.ps1"
