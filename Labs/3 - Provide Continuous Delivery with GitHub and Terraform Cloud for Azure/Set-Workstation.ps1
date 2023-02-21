@@ -48,7 +48,7 @@ Register-ScheduledTask -TaskName "Install-Extensions" -Action $Action -Trigger $
 
 # Copy Terraform File
 New-Item -Path $TerraformFolderPath -ItemType "Directory"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/2%20-%20Migrate%20Terraform%20State%20to%20Terraform%20Cloud%20for%20Azure/main.tf" -OutFile $TerraformFilePath
+Invoke-WebRequest -Uri "" -OutFile $TerraformFilePath
 
 # Inject ResourceGroup Name and Location into the Terraform file
 (Get-Content $TerraformFilePath) -Replace '%ResourceGroupName%', "$($ResourceGroupName)" | Set-Content $TerraformFilePath
