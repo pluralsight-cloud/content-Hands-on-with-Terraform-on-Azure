@@ -48,7 +48,7 @@ Register-ScheduledTask -TaskName "Install-Extensions" -Action $Action -Trigger $
 
 # Copy Terraform File
 New-Item -Path $TerraformFolderPath -ItemType "Directory"
-Invoke-WebRequest -Uri "" -OutFile $TerraformFilePath
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/3%20-%20Provide%20Continuous%20Delivery%20with%20GitHub%20and%20Terraform%20Cloud%20for%20Azure/main.tf" -OutFile $TerraformFilePath
 
 # Inject ResourceGroup Name and Location into the Terraform file
 (Get-Content $TerraformFilePath) -Replace '%ResourceGroupName%', "$($ResourceGroupName)" | Set-Content $TerraformFilePath
