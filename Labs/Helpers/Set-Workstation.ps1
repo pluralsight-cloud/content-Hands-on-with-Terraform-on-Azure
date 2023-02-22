@@ -30,15 +30,17 @@ choco install azure-cli --version 2.45.0 -y --no-progress
 choco install vscode --version 1.75.0 -y --no-progress
 
 # Clean-up Microsoft Edge
+# Create teh Directory Tree
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Force
 # Disallow importing of browser settings
-New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "ImportBrowserSettings" -Value 0 -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "ImportBrowserSettings" -Value 0 -Force
 # Open a list of URLs on startup
-New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "RestoreOnStartup" -PropertyType "DWORD" -Value 4 -Force
-New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Name '1' -Value "about:blank" -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "RestoreOnStartup" -PropertyType "DWORD" -Value 4 -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Name '1' -Value "about:blank" -Force
 # Configure the new tab page URL
-New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "NewTabPageLocation" -Value "about:blank" -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "NewTabPageLocation" -Value "about:blank" -Force
 # Disable the password manager
-New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "PasswordManagerEnabled" -Value '0' -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "PasswordManagerEnabled" -Value '0' -Force
 # Hide the First-run experience and splash screen
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "HideFirstRunExperience" -Value 1 -Force
 # Disable sign-in
