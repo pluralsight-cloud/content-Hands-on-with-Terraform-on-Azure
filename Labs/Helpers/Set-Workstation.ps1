@@ -41,6 +41,8 @@ New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "New
 New-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "PasswordManagerEnabled" -Value '0' -Force
 # Hide the First-run experience and splash screen
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "HideFirstRunExperience" -Value 1 -Force
+# Disable sign-in
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "BrowserSignin" -Value 0 -Force
 
 # Install required Visual Studio Code Extensions by downloading a script and running a scheduled task at logon
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
