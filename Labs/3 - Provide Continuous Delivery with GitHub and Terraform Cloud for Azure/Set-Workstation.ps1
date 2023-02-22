@@ -8,7 +8,7 @@ $ProgressPreference = "SilentlyContinue"
 $WarningPreference = "SilentlyContinue"
 
 # Set Terraform file variables
-$TerraformFolderPath = "C:\MigrateState"
+$TerraformFolderPath = "C:\Terraform"
 $TerraformFilePath = Join-Path -Path $TerraformFolderPath -ChildPath "main.tf"
 
 # Fix Server UI
