@@ -30,7 +30,7 @@ choco install azure-cli --version 2.45.0 -y --no-progress
 choco install vscode --version 1.75.0 -y --no-progress
 
 # Clean-up Microsoft Edge
-# Create teh Directory Tree
+# Create the Directory Tree
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Force
 # Disallow importing of browser settings
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "ImportBrowserSettings" -Value 0 -Force
