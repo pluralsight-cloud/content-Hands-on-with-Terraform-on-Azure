@@ -30,7 +30,7 @@ choco install azure-cli --version 2.45.0 -y --no-progress
 choco install vscode --version 1.75.0 -y --no-progress
 
 # Clean-up Microsoft Edge
-New-Item -Path "HKLM:\Software\Policies\Microsoft" -Value "Edge" -ItemType "Directory"
+New-Item -Path "HKLM:\Software\Policies\Microsoft" -Value "Edge" -ItemType "Directory" -ErrorAction SilentlyContinue
 New-ItemProperty -Path "HKLM:\Software\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
 
 # Install required Visual Studio Code Extensions by downloading a script and running a scheduled task at logon
