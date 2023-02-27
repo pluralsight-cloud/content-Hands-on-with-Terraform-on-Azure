@@ -31,18 +31,20 @@ choco install vscode --version 1.75.0 -y --no-progress
 
 # Clean-up Microsoft Edge
 # Create the Directory Tree
-New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Force
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\" -Force
 # Disable full-tab promotional content
 Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "PromotionalTabsEnabled" -Value 0 -Type "DWord" -Force
+# Disable Password Manager
+Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Edge\PasswordManagerEnabled" -Name "PromotionalTabsEnabled" -Value 0 -Type "DWord" -Force
 # Disallow importing of browser settings
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "ImportBrowserSettings" -Value 0 -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "ImportBrowserSettings" -Value 0 -Force
 # Open a list of URLs on startup
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "RestoreOnStartup" -PropertyType "DWORD" -Value 4 -Force
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Name '1' -Value "about:blank" -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "RestoreOnStartup" -PropertyType "DWORD" -Value 4 -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" -Name '1' -Value "about:blank" -Force
 # Configure the new tab page URL
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "NewTabPageLocation" -Value "about:blank" -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "NewTabPageLocation" -Value "about:blank" -Force
 # Disable the password manager
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "PasswordManagerEnabled" -Value '0' -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "PasswordManagerEnabled" -Value '0' -Force
 # Hide the First-run experience and splash screen
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "HideFirstRunExperience" -Value 1 -Force
 # Disable sign-in
