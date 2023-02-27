@@ -31,24 +31,33 @@ choco install vscode --version 1.75.0 -y --no-progress
 
 # Clean-up Microsoft Edge
 # Create the Directory Tree
-New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\" -Force
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\PasswordManagerEnabled" -Force
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" -Force
 # Disable full-tab promotional content
 Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "PromotionalTabsEnabled" -Value 0 -Type "DWord" -Force
 # Disable Password Manager
 Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Edge\PasswordManagerEnabled" -Name "PromotionalTabsEnabled" -Value 0 -Type "DWord" -Force
 # Disallow importing of browser settings
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "ImportBrowserSettings" -Value 0 -Force
-# Open a list of URLs on startup
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "RestoreOnStartup" -PropertyType "DWORD" -Value 4 -Force
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" -Name '1' -Value "about:blank" -Force
-# Configure the new tab page URL
-New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "NewTabPageLocation" -Value "about:blank" -Force
+# Disallow Microsoft News content on the new tab page
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPageContentEnabled" -Value 0 -Type "DWord" -Force
+# Disallow all background types allowed for the new tab page layout
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPageAllowedBackgroundTypes" -Value 3 -Type "DWord" -Force
+# Hide App Launcher on Microsoft Edge new tab page
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPageAppLauncherEnabled" -Value 0 -Type "DWord" -Force
 # Disable the password manager
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "PasswordManagerEnabled" -Value '0' -Force
 # Hide the First-run experience and splash screen
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "HideFirstRunExperience" -Value 1 -Force
 # Disable sign-in
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "BrowserSignin" -Value 0 -Force
+# Disable quick links on the new tab page
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "NewTabPageQuickLinksEnabled" -Value 0 -Force
+# Disable importing of favorites
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "ImportFavorites" -Value 0 -Force
+
+#GPUpdate, just 'cause
+GPUPDATE /FORCE /TARGET:COMPUTER
 
 # Install required Visual Studio Code Extensions by downloading a script and running a scheduled task at logon
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
