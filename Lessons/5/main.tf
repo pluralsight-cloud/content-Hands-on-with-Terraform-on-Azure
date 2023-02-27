@@ -6,7 +6,7 @@ terraform {
       version  = ">=3.43.0"
     }
   }
-  #Terraform cloud code block
+    #Terraform cloud code block
 }
 
 provider "azurerm" {

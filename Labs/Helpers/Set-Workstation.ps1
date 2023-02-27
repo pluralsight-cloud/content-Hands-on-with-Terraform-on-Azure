@@ -32,6 +32,8 @@ choco install vscode --version 1.75.0 -y --no-progress
 # Clean-up Microsoft Edge
 # Create the Directory Tree
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended\RestoreOnStartupURLs" -Force
+# Disable full-tab promotional content
+Set-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "PromotionalTabsEnabled" -Value 0 -Type "DWord" -Force
 # Disallow importing of browser settings
 New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge\Recommended" -Name "ImportBrowserSettings" -Value 0 -Force
 # Open a list of URLs on startup
