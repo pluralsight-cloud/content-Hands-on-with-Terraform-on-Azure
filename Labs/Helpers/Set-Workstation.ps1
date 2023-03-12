@@ -24,12 +24,36 @@ Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 Update-SessionEnvironment
 
 # Configure Software
-choco install terraform --version 1.3.7 -y --no-progress
-choco install git --version 2.39.1 -y --no-progress
-choco install azure-cli --version 2.45.0 -y --no-progress
-choco install vscode --version 1.75.0 -y --no-progress
+choco install terraform -y --no-progress
+choco install git -y --no-progress
+choco install azure-cli -y --no-progress
+choco install vscode -y --no-progress
 
-# Clean-up Microsoft Edge
+#region Ensure Terraform is up-to-date
+
+#Update Environmental Variables
+Update-SessionEnvironment
+
+#Ensure IE ESC is disabled
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Value 0 -Force
+
+# Ensure C:\Temp exists
+New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
+
+# Download the latest Terraform release
+$TerraformReleases = Invoke-WebRequest "https://releases.hashicorp.com/terraform"
+$LatestReleaseFileName = $TerraformReleases.Links[1].outerText + "_windows_amd64.zip"
+$DownloadURL = "https://releases.hashicorp.com$($TerraformReleases.Links[1].href)$($LatestReleaseFileName)"
+Invoke-WebRequest -Uri $DownloadURL -OutFile "C:\Temp\Terraform.zip"
+
+# "Install" the latest version
+$TerraformPath = $env:Path -split ';' | Where-Object {$_ -Match "Terraform" -or $_ -Match "chocolatey"}
+Expand-Archive -LiteralPath "C:\Temp\Terraform.zip" -DestinationPath $TerraformPath -Force
+
+#endregion Ensure Terraform is up-to-date
+
+#region Clean-up Microsoft Edge
 # Create the Directory Tree
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\PasswordManagerEnabled" -Force
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge\RestoreOnStartupURLs" -Force
@@ -58,6 +82,8 @@ New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Edge" -Name "ImportFav
 
 #GPUpdate, just 'cause
 GPUPDATE /FORCE /TARGET:COMPUTER
+
+#endregion Clean-up Microsoft Edge
 
 # Install required Visual Studio Code Extensions by downloading a script and running a scheduled task at logon
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
