@@ -50,10 +50,13 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Componen
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
 
 # Download the latest Terraform release
-$TerraformReleases = Invoke-WebRequest "https://releases.hashicorp.com/terraform"
-$LatestReleaseFileName = $TerraformReleases.Links[1].outerText + "_windows_amd64.zip"
-$DownloadURL = "https://releases.hashicorp.com$($TerraformReleases.Links[1].href)$($LatestReleaseFileName)"
-Invoke-WebRequest -Uri $DownloadURL -OutFile "C:\Temp\Terraform.zip"
+$HashiCorpReleasesURL = "https://releases.hashicorp.com"
+$TerraformReleasesURL = "$($HashiCorpReleasesURL)/terraform" 
+$TerraformReleases = Invoke-WebRequest $TerraformReleasesURL -UseBasicParsing
+$LatestReleaseURL = "$($HashiCorpReleasesURL)$($TerraformReleases.Links[1].href)"
+$LatestReleases = Invoke-WebRequest $LatestReleaseURL -UseBasicParsing
+$LatestWindowsReleaseURL = $LatestReleases.Links.href | Where-Object {$_ -like "*windows_amd64*"}
+Invoke-WebRequest -Uri $LatestWindowsReleaseURL -OutFile "C:\Temp\Terraform.zip"  -UseBasicParsing
 
 # "Install" the latest version
 $TerraformPath = $env:Path -split ';' | Where-Object {$_ -Match "Terraform" -or $_ -Match "chocolatey"}
