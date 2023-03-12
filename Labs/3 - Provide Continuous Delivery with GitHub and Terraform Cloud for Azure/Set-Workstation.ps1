@@ -33,10 +33,10 @@ Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 Update-SessionEnvironment
 
 # Configure Software
-choco install terraform --version 1.3.7 -y --no-progress
-choco install git --version 2.39.1 -y --no-progress
-choco install azure-cli --version 2.45.0 -y --no-progress
-choco install vscode --version 1.75.0 -y --no-progress
+choco install terraform -y --no-progress
+choco install git -y --no-progress
+choco install azure-cli -y --no-progress
+choco install vscode -y --no-progress
 
 #region Ensure Terraform is up-to-date
 #Update Environmental Variables
