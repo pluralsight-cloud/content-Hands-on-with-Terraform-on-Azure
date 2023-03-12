@@ -38,6 +38,29 @@ choco install git --version 2.39.1 -y --no-progress
 choco install azure-cli --version 2.45.0 -y --no-progress
 choco install vscode --version 1.75.0 -y --no-progress
 
+#region Ensure Terraform is up-to-date
+#Update Environmental Variables
+Update-SessionEnvironment
+
+#Ensure IE ESC is disabled
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Value 0 -Force
+
+# Ensure C:\Temp exists
+New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
+
+# Download the latest Terraform release
+$TerraformReleases = Invoke-WebRequest "https://releases.hashicorp.com/terraform"
+$LatestReleaseFileName = $TerraformReleases.Links[1].outerText + "_windows_amd64.zip"
+$DownloadURL = "https://releases.hashicorp.com$($TerraformReleases.Links[1].href)$($LatestReleaseFileName)"
+Invoke-WebRequest -Uri $DownloadURL -OutFile "C:\Temp\Terraform.zip"
+
+# "Install" the latest version
+$TerraformPath = $env:Path -split ';' | Where-Object {$_ -Match "Terraform" -or $_ -Match "chocolatey"}
+Expand-Archive -LiteralPath "C:\Temp\Terraform.zip" -DestinationPath $TerraformPath -Force
+
+#endregion Ensure Terraform is up-to-date
+
 # Install required Visual Studio Code Extensions by downloading a script and running a scheduled task at logon
 New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyContinue"
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pluralsight-cloud/content-Hands-on-with-Terraform-on-Azure/main/Labs/Helpers/Install-Extensions.ps1' -OutFile "C:\Temp\Install-Extensions.ps1"

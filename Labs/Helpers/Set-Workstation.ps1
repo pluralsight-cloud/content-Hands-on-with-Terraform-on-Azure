@@ -30,7 +30,6 @@ choco install azure-cli -y --no-progress
 choco install vscode -y --no-progress
 
 #region Ensure Terraform is up-to-date
-
 #Update Environmental Variables
 Update-SessionEnvironment
 
