@@ -44,7 +44,8 @@ New-Item -Path "C:\" -Value "Temp" -ItemType "Directory" -ErrorAction "SilentlyC
 $HashiCorpReleasesURL = "https://releases.hashicorp.com"
 $TerraformReleasesURL = "$($HashiCorpReleasesURL)/terraform" 
 $TerraformReleases = Invoke-WebRequest $TerraformReleasesURL -UseBasicParsing
-$LatestReleaseURL = "$($HashiCorpReleasesURL)$($TerraformReleases.Links[1].href)"
+# Regex to select the terraform folder followed by a semantic release, to select the latest release but exclude alphas, betas, etc
+$LatestReleaseURL = "$($HashiCorpReleasesURL)$($TerraformReleases.Links.href -match '^\/terraform\/(\d+\.)?(\d+\.)?(\*|\d+)\/$' | Select-Object -First 1)"
 $LatestReleases = Invoke-WebRequest $LatestReleaseURL -UseBasicParsing
 $LatestWindowsReleaseURL = $LatestReleases.Links.href | Where-Object {$_ -like "*windows_amd64*"}
 Invoke-WebRequest -Uri $LatestWindowsReleaseURL -OutFile "C:\Temp\Terraform.zip"  -UseBasicParsing
