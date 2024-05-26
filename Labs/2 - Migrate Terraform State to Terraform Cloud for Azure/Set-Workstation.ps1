@@ -35,7 +35,8 @@ Update-SessionEnvironment
 # Configure Software
 choco install terraform -y --no-progress
 choco install git -y --no-progress
-choco install azure-cli -y --no-progress
+# Temporary, due to this bug: https://github.com/Azure/azure-cli/issues/28997
+choco install azure-cli --version=2.60.0 -y --no-progress
 choco install vscode -y --no-progress
 
 #region Ensure Terraform is up-to-date
